@@ -1,0 +1,79 @@
+#nameAndData {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+#formId {
+    text-align: center;
+}
+
+#inputWish {
+    height: 30px;
+    width: 350px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(173, 46, 70);
+    font-size: 20px;
+}
+
+#inputCash {
+    width: 100px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border: 2px solid rgb(173, 46, 70);
+    font-size: 20px;
+}
+
+#buttonAdd {
+    border-radius: 10px;
+    background-color: palevioletred;
+    background-color: rgb(219, 141, 156);
+    border-color: rgb(219, 141, 156);
+    color: white;
+    width: 70px;
+    height: 30px;
+    font-size: 20px;
+}
+
+#buttonAdd:active {
+    box-shadow: -3px 3px rgb(163, 61, 81);
+}
+
+input:focus {
+    background-color: rgb(233, 166, 180);
+    color: aliceblue;
+}
+
+.addWish {
+    text-align: center;
+    border: 2px solid pink;
+    height: auto;
+    margin: auto;
+    width: 500px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+button {
+    margin: 5px;
+    background-color: rgb(206, 143, 153);
+    border-radius: 5px;
+    border: 3px solid rgb(206, 143, 153);
+    color: white;
+}
+
+button:hover {
+    background-color: white;
+    color: rgb(206, 143, 153);
+}
+
+.finishText {
+    text-decoration: line-through;
+    text-decoration-color: red;
+}

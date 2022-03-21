@@ -1,0 +1,87 @@
+h1 {
+    text-align: center;
+}
+
+#name {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+#startedAmount {
+    position: relative;
+    top: 20px;
+    left: 20px;
+}
+
+input {
+    margin: 10px;
+    border: 2px solid rgb(173, 46, 70);
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+#input1 {
+    height: 40px;
+    width: 350px;
+}
+
+#input2 {
+    width: 100px;
+    height: 40px;
+}
+
+#formdiv {
+    margin: auto;
+    text-align: center;
+}
+
+button {
+    background-color: rgb(219, 141, 156);
+    border-color: rgb(219, 141, 156);
+    border-radius: 3px;
+    color: white;
+}
+
+button:active {
+    box-shadow: -3px 3px rgb(163, 61, 81);
+}
+
+input:focus {
+    background-color: rgb(233, 166, 180);
+}
+
+.divWishes1 {
+    border: 2px solid black;
+    width: 50%;
+    height: auto;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#alerta {
+    color: red;
+    font-weight: bold;
+}
+
+.divWishes1 button {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#btn {
+    text-align: right;
+}
+
+.done {
+    text-decoration: line-through;
+    color: red;
+}
+
+.formInput {
+    text-indent: 10px;
+}
