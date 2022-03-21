@@ -3,35 +3,25 @@ import "./projectForm.css"
 
 function ProjectForm() {
 
-    const get = () => {
-        let lists = localStorage.getItem("list");
-
-
-        if (lists)
-            return (lists = JSON.parse(localStorage.getItem('list')))
-        else return []
+   
+    const getFromLocalstorage = (key) =>{
+        const items = localStorage.getItem(key);
+        if (items)
+            return JSON.parse(items)
+        return null 
     }
-    const getStart = () => {
-        let lists = localStorage.getItem("startAmount");
-
-
-        if (lists)
-            return (lists = JSON.parse(localStorage.getItem('startAmount')))
-        else return []
-    }
-    const [wishes, setWishes] = useState(get());
+    const [wishes, setWishes] = useState(getFromLocalstorage('list'));
     const [todoWish, setTodoWish] = useState('')  /* ce wish introduc  in input*/
     const [todoWishRon, setTodoWishRon] = useState('')  /* ce wish RON introduc  in input*/
     const [totalAmount, setTotalAmount] = useState(0)
-    const [startAmount, setStartAmount] = useState(getStart())
+    const [startAmount, setStartAmount] = useState(getFromLocalstorage('startAmount'))
     const [errorInputRon, setErrorInputRon] = useState(false)
     const [valid, setValid] = useState(false)
 
     //after render, and after the component is changed
     useEffect(() => {
-
         localStorage.setItem("list", JSON.stringify(wishes))
-    }, [wishes])
+    }, [wishes]) 
     useEffect(() => {
         localStorage.setItem("startAmount", JSON.stringify(startAmount))
     }, [startAmount])
@@ -40,10 +30,7 @@ function ProjectForm() {
     function random() {
         return Math.floor(Math.random() * 50444);
     }
-    function _valid() {
-        setValid(!valid)
-    }
-
+   
 
 
 
@@ -206,7 +193,7 @@ function ProjectForm() {
                                             <>
                                                 <input value={wish.wishText} onChange={(e) => editInputWish(e, wish.id)} />
                                                 <button onClick={() => setUpdateWish(wish.id)}>Update Wish</button>
-                                            </> : <p className={wish.finishWish ? 'finishText' : null}>My wish: {wish.wishText} </p>
+                                            </> : <p className={wish.finishWish ? 'finishText' : ''}>My wish: {wish.wishText} </p>
                                     }
                                     <p> {wish.money} ron </p>
 
@@ -224,12 +211,9 @@ function ProjectForm() {
 
             </section>
             <section>
-                <button onClick={_valid}>Add</button>
-                {valid && <p>Ok </p>}
+                <button onClick={onAddClick}>Add</button>
+                    <p> </p>
             </section>
-
-
-
         </>
 
     )
