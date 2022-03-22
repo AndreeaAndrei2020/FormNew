@@ -160,12 +160,12 @@ function ProjectForm() {
 
     return (
         <>
-            <Header startAmount={startAmount} totalAmount={totalAmount}></Header>
+            <Header startAmount={startAmount} totalAmount={totalAmount}/>
             <section>
                 <h1>Wish List</h1>
                 <div>
-                    <FormComponent errorInputRon={errorInputRon} addWishSubmit={addWishSubmit} onWishTextChange={onWishTextChange} todoWish={todoWish} onMoneyTextChange={onMoneyTextChange} todoWishRon={todoWishRon}></FormComponent>
-                    <WishesComponent editInputWish={editInputWish} setUpdateWish={setUpdateWish} wishes={wishes} startwish={startwish} editWish={editWish} deleteWish={deleteWish} finishWish={finishWish}></WishesComponent>
+                    <FormComponent errorInputRon={errorInputRon} addWishSubmit={addWishSubmit} onWishTextChange={onWishTextChange} todoWish={todoWish} onMoneyTextChange={onMoneyTextChange} todoWishRon={todoWishRon}/>
+                    <WishesComponent editInputWish={editInputWish} setUpdateWish={setUpdateWish} wishes={wishes} startwish={startwish} editWish={editWish} deleteWish={deleteWish} finishWish={finishWish}/>
                 </div>
             </section>
 

@@ -77,3 +77,13 @@ button:hover {
     text-decoration: line-through;
     text-decoration-color: red;
 }
+
+#startedAmount {
+    border-bottom: 2px dotted black;
+    width: 130px;
+}
+
+#totalAmount {
+    position: relative;
+    top: -7px;
+}
