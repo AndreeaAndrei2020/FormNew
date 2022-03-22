@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import Header from './components/header';
-import FormComponent from './components/formComponent'
+import Header from './components/Header';
+import FormComponent from './components/FormComponent'
 import "./projectForm.css"
 import WishesComponent from './components/WishesComponent';
 
