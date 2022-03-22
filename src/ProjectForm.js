@@ -1,36 +1,42 @@
 import React, { useState, useEffect } from 'react'
+import Header from './components/header';
+import FormComponent from './components/formComponent'
 import "./projectForm.css"
+import WishesComponent from './components/WishesComponent';
 
 function ProjectForm() {
 
-   
-    const getFromLocalstorage = (key) =>{
+
+    const getFromLocalstorage = (key) => {
         const items = localStorage.getItem(key);
         if (items)
             return JSON.parse(items)
-        return null 
+        return null
     }
     const [wishes, setWishes] = useState(getFromLocalstorage('list'));
     const [todoWish, setTodoWish] = useState('')  /* ce wish introduc  in input*/
     const [todoWishRon, setTodoWishRon] = useState('')  /* ce wish RON introduc  in input*/
-    const [totalAmount, setTotalAmount] = useState(0)
+    const [totalAmount, setTotalAmount] = useState(getFromLocalstorage('startAmount'))
     const [startAmount, setStartAmount] = useState(getFromLocalstorage('startAmount'))
     const [errorInputRon, setErrorInputRon] = useState(false)
-    const [valid, setValid] = useState(false)
 
     //after render, and after the component is changed
     useEffect(() => {
         localStorage.setItem("list", JSON.stringify(wishes))
-    }, [wishes]) 
+    }, [wishes])
     useEffect(() => {
         localStorage.setItem("startAmount", JSON.stringify(startAmount))
     }, [startAmount])
+
+    useEffect(() => {
+        localStorage.setItem("totalAmount", JSON.stringify(totalAmount))
+    }, [totalAmount])
 
 
     function random() {
         return Math.floor(Math.random() * 50444);
     }
-   
+
 
 
 
@@ -59,7 +65,7 @@ function ProjectForm() {
         setTodoWish(e.target.value)
     }
     function onMoneyTextChange(e) {      /* retin dorinta Ron pentru a o putea pune in usestate */
-        if (!parseInt(e.target.value))
+        if (!/^[0-9]+$/.test(e.target.value))
             setErrorInputRon(true)
         else {
             setErrorInputRon(false)
@@ -103,10 +109,9 @@ function ProjectForm() {
     }
     function deleteWish(id) {
 
-        const _wishes = wishes.filter(wish => wish.id !== id)
+        const _wishes = wishes.filter(wish => wish.id !== id)    //selectam wishes ca sa scapam de wish ul cu id pe care vrem sa l stergem 
         const deletedWish = wishes.find(wish => wish.id === id)
-        console.log(_wishes)
-        console.log(deletedWish)
+
         setWishes(_wishes)
 
         if (deletedWish.startWish & deletedWish.finishWish) {
@@ -155,65 +160,15 @@ function ProjectForm() {
 
     return (
         <>
-            <header>
-                <div id="amount">
-                    Started amount:{startAmount}
-                    <br>
-                    </br>
-                    ...........................<br>
-                    </br>
-                    Total amount: {totalAmount}
-                </div>
-
-                <div id="nameAndData">@AndreiAndreea- 11/03/2022</div>
-
-            </header>
+            <Header startAmount={startAmount} totalAmount={totalAmount}></Header>
             <section>
-                <h1>
-                    Wish List
-                </h1>
+                <h1>Wish List</h1>
                 <div>
-
-                    <form id='formId' onSubmit={addWishSubmit}>
-
-                        <input id="inputWish" placeholder='Add your wish' onChange={onWishTextChange} value={todoWish} />
-                        <input id="inputCash" placeholder='Add $' onChange={onMoneyTextChange} value={todoWishRon} />
-                        {
-                            errorInputRon ? <p> Please complete corectly all fields!</p> : ""
-                        }
-                        <button id='buttonAdd' type='submit'>Add</button>
-
-                    </form>
-                    <div >
-                        {
-                            wishes.map((wish) => {
-                                return <div className='addWish'>
-                                    {
-                                        wish.edit ?
-                                            <>
-                                                <input value={wish.wishText} onChange={(e) => editInputWish(e, wish.id)} />
-                                                <button onClick={() => setUpdateWish(wish.id)}>Update Wish</button>
-                                            </> : <p className={wish.finishWish ? 'finishText' : ''}>My wish: {wish.wishText} </p>
-                                    }
-                                    <p> {wish.money} ron </p>
-
-                                    <br>
-                                    </br>
-                                    <button onClick={() => startwish(wish.id)}>Start Wish</button>
-                                    <button onClick={() => editWish(wish.id)}>Edit Wish</button>
-                                    <button onClick={() => deleteWish(wish.id)}>Delete Wish</button>
-                                    <button onClick={() => finishWish(wish.id)}>Finish Wish</button>
-                                </div>
-                            })
-                        }
-                    </div>
+                    <FormComponent errorInputRon={errorInputRon} addWishSubmit={addWishSubmit} onWishTextChange={onWishTextChange} todoWish={todoWish} onMoneyTextChange={onMoneyTextChange} todoWishRon={todoWishRon}></FormComponent>
+                    <WishesComponent editInputWish={editInputWish} setUpdateWish={setUpdateWish} wishes={wishes} startwish={startwish} editWish={editWish} deleteWish={deleteWish} finishWish={finishWish}></WishesComponent>
                 </div>
+            </section>
 
-            </section>
-            <section>
-                <button onClick={onAddClick}>Add</button>
-                    <p> </p>
-            </section>
         </>
 
     )
