@@ -1,17 +1,21 @@
-import React from 'react'
+import React, { Component } from 'react'
 
-function Header() {
-    return (
-        <div>
-            <div id="amount">
-                <p id="startedAmount"> Started amount:{props.startAmount}</p>
-                <p id='totalAmount'> Total amount: {props.totalAmount}</p>
+export default  class Header extends Component {
+    constructor() {
+        super()
+        this.state = {}
+        }
+        render() {
+            return (
+                <div >
+                    <div id="amount">
+                        <p id="startedAmount"> Started amount:{this.props.startAmount}</p>
+                        <p id='totalAmount'> Total amount: {this.props.totalAmount}</p>
 
-            </div>
+                    </div>
 
-            <div id="nameAndData">@AndreiAndreea- 11/03/2022 </div>
-        </div>
-    )
+                    <div id="nameAndData">@AndreiAndreea- 11/03/2022 </div>
+                </div>
+            )
+        }
 }
-
-export default Header

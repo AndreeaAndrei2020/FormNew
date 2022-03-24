@@ -5,8 +5,6 @@ import "./projectForm.css"
 import WishesComponent from './components/WishesComponent';
 
 function ProjectForm() {
-
-
     const getFromLocalstorage = (key) => {
         const items = localStorage.getItem(key);
         if (items)
@@ -14,11 +12,9 @@ function ProjectForm() {
         return null
     }
     const [wishes, setWishes] = useState(getFromLocalstorage('list'));
-    const [todoWish, setTodoWish] = useState('')  /* ce wish introduc  in input*/
-    const [todoWishRon, setTodoWishRon] = useState('')  /* ce wish RON introduc  in input*/
     const [totalAmount, setTotalAmount] = useState(getFromLocalstorage('startAmount'))
     const [startAmount, setStartAmount] = useState(getFromLocalstorage('startAmount'))
-    const [errorInputRon, setErrorInputRon] = useState(false)
+  
 
     //after render, and after the component is changed
     useEffect(() => {
@@ -37,93 +33,67 @@ function ProjectForm() {
         return Math.floor(Math.random() * 50444);
     }
 
-
-
-
-    function addWishSubmit(e) {   /* adaug in vector dorinta si banii */
-        e.preventDefault()
+    function addWishSubmit(obj) {   /* adaug in vector dorinta si banii */
+        if(!obj.errorInputRon) {
         setWishes([
             ...wishes,
             {
-                wishText: todoWish,
-                money: todoWishRon,
+                wishText: obj.todoWish,
+                money: obj.todoWishRon,
                 id: random(),
                 startWish: false,
                 finishWish: false,
                 delete: false,
                 edit: false
             }
-        ])
-        setTodoWish('')
-        setTodoWishRon('')
-
-
-
+        ])}
+     
     }
-    function onWishTextChange(e) {   /* retin dorinta pentru a o putea pune in usestate */
 
-        setTodoWish(e.target.value)
-    }
-    function onMoneyTextChange(e) {      /* retin dorinta Ron pentru a o putea pune in usestate */
-        if (!/^[0-9]+$/.test(e.target.value))
-            setErrorInputRon(true)
-        else {
-            setErrorInputRon(false)
-            setTodoWishRon(e.target.value)
-        }
-    }
 
     function startwish(id) {
-
-        const start = wishes.map((x) => {
-            if (x.id === id) {
-                if (!x.startWish) { /* daca e false , adaugam la startAmount */
-                    setStartAmount(parseInt(x.money) + startAmount)
-                    setTotalAmount(parseInt(x.money) + totalAmount)
-                    return { ...x, startWish: !x.startWish }
+        const _wishes = wishes.map((wish) => {
+            if (wish.id === id) {
+                if (!wish.startWish) { /* daca e false , adaugam la startAmount */
+                    setStartAmount(parseInt(wish.money) + startAmount)
+                    setTotalAmount(parseInt(wish.money) + totalAmount)
+                    return { ...wish, startWish: !wish.startWish }
                 }
-                else {   /* daca nu , doar mergem mai departe cu return ul de obiecte */
-                    return x;
-                }
-
             }
             /*daca startWish e true, atunci schimbam valoarea */
-            else return x;        /* daca nu, returnam si se va forma tot un array de obiecte */
-
+            return wish;        /* daca nu, returnam si se va forma tot un array de obiecte */
         })
-        setWishes(start)   /* vom updata array ul de obiecte cu noul array de obiecte */
+        setWishes(_wishes)   /* vom updata array ul de obiecte cu noul array de obiecte */
     }
-    function finishWish(id) {
-        const finish = wishes.map((x) => {
-            if (x.id === id) {
-                if (x.startWish & !x.finishWish) {
-                    setStartAmount(startAmount - x.money)
-                    return { ...x, finishWish: !x.finishWish }
-                }
-                else return x;
-            }
-            else return x;
 
+    function finishWish(id) {
+        const finish = wishes.map((wish) => {
+            if (wish.id === id) {
+                if (wish.startWish && !wish.finishWish) {
+                    setStartAmount(startAmount - wish.money)
+                    return { ...wish, finishWish: !wish.finishWish }
+                }
+            }
+            return wish;
         })
         setWishes(finish)
     }
-    function deleteWish(id) {
 
+    function deleteWish(id) {
         const _wishes = wishes.filter(wish => wish.id !== id)    //selectam wishes ca sa scapam de wish ul cu id pe care vrem sa l stergem 
         const deletedWish = wishes.find(wish => wish.id === id)
-
         setWishes(_wishes)
 
-        if (deletedWish.startWish & deletedWish.finishWish) {
+        if (deletedWish.finishWish) {
             setTotalAmount(totalAmount - deletedWish.money)
             console.log("prima")
         }
-        if (deletedWish.startWish & !deletedWish.finishWish) {
+
+        if (deletedWish.startWish && !deletedWish.finishWish) {
             setTotalAmount(totalAmount - deletedWish.money)
             setStartAmount(startAmount - deletedWish.money)
             console.log("doi")
         }
-
     }
 
     function editWish(id) {
@@ -156,21 +126,17 @@ function ProjectForm() {
         setWishes(update)
     }
 
-
-
     return (
         <>
             <Header startAmount={startAmount} totalAmount={totalAmount} />
             <section>
                 <h1>Wish List</h1>
                 <div>
-                    <FormComponent errorInputRon={errorInputRon} addWishSubmit={addWishSubmit} onWishTextChange={onWishTextChange} todoWish={todoWish} onMoneyTextChange={onMoneyTextChange} todoWishRon={todoWishRon} />
+                    <FormComponent addWishSubmit={addWishSubmit} />
                     <WishesComponent editInputWish={editInputWish} setUpdateWish={setUpdateWish} wishes={wishes} startwish={startwish} editWish={editWish} deleteWish={deleteWish} finishWish={finishWish} />
                 </div>
             </section>
-
         </>
-
     )
 }
 
