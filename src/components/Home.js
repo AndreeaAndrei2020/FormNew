@@ -1,16 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
+class FormComponent extends Component {
+  constructor() {
+    super();
+    this.state = {
+      number: 0
+    }
 
-export default function Home() {
-    const mystyle = {
-       textAlign: 'center',
-       marginTop: '30px'
-      };
-  return (
-    <div style={mystyle}> 
-    <h1>home page</h1>
+  }
+
+   
+  componentDidMount() {
+    console.log("didMount")
     
-    <Link to='/pages' > Pages </Link>
-     </div>
-  )
+  }
+  onCountClick = () => {
+    this.setState({ number: this.state.number + 1 })
+  }
+  
+  render() {
+    return (
+      <div className=''>
+        <h1>home page</h1>
+        <Link to='/pages' > Pages </Link>
+        <button onClick={this.onCountClick}> number: {this.state.number}</button>
+      </div>
+    )
+
+  }
+
 }
+export default FormComponent
+  
+
+

@@ -9,12 +9,12 @@ function ProjectForm() {
         const items = localStorage.getItem(key);
         if (items)
             return JSON.parse(items)
-        return null
+        return []
+
     }
     const [wishes, setWishes] = useState(getFromLocalstorage('list'));
     const [totalAmount, setTotalAmount] = useState(getFromLocalstorage('startAmount'))
     const [startAmount, setStartAmount] = useState(getFromLocalstorage('startAmount'))
-  
 
     //after render, and after the component is changed
     useEffect(() => {
@@ -34,20 +34,21 @@ function ProjectForm() {
     }
 
     function addWishSubmit(obj) {   /* adaug in vector dorinta si banii */
-        if(!obj.errorInputRon) {
-        setWishes([
-            ...wishes,
-            {
-                wishText: obj.todoWish,
-                money: obj.todoWishRon,
-                id: random(),
-                startWish: false,
-                finishWish: false,
-                delete: false,
-                edit: false
-            }
-        ])}
-     
+        if (!obj.errorInputRon) {
+            setWishes([
+                ...wishes,
+                {
+                    wishText: obj.todoWish,
+                    money: obj.todoWishRon,
+                    id: random(),
+                    startWish: false,
+                    finishWish: false,
+                    delete: false,
+                    edit: false
+                }
+            ])
+        }
+
     }
 
 

@@ -4,7 +4,7 @@ function Page() {
 
     let params = useParams();
     console.log("sddsd" ,params)
-  return <h2>Invoice: {params.pageId}</h2>;
+  return <h2>Page : {params.pageId}</h2>;
   
 }
 

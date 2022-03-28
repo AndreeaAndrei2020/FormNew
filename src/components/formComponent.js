@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 
 class FormComponent extends Component {
     constructor(props) {
-        super(props);
-        console.log("SADd", props)
+        super(props)
         this.state = { todoWish: '', todoWishRon: '', errorInputRon: false }  ///like useState(0), astea sunt locale si le voi transmite la Parinte cu functia  addWishSubmit
     }
     onWishTextChange = (e) => {   /* retin dorinta pentru a o putea pune in usestate */
