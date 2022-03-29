@@ -1,14 +1,13 @@
-import React from 'react'
 
 function data() {
 
     const data = [{
-        name: 'home',
+        name: 'page1',
         nr: 1,
         cash: 40
     },
     {
-        name: 'form',
+        name: 'page2',
         nr: 2,
         cash: 30
     }

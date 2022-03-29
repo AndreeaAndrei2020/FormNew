@@ -6,18 +6,15 @@ class FormComponent extends Component {
     this.state = {
       number: 0
     }
-
   }
 
-   
   componentDidMount() {
     console.log("didMount")
-    
   }
   onCountClick = () => {
     this.setState({ number: this.state.number + 1 })
   }
-  
+
   render() {
     return (
       <div className=''>
@@ -31,6 +28,6 @@ class FormComponent extends Component {
 
 }
 export default FormComponent
-  
+
 
 

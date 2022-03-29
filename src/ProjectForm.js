@@ -6,9 +6,12 @@ import WishesComponent from './components/WishesComponent';
 
 function ProjectForm() {
     const getFromLocalstorage = (key) => {
-        const items = localStorage.getItem(key);
+        const items = localStorage.getItem(key);   //cauta in local storage list , apoi il returneaza in wishes
         if (items)
-            return JSON.parse(items)
+            {
+                console.log("items",items)
+                return JSON.parse(items)
+            }
         return []
 
     }
